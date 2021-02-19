@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'NimbusRomNo9L-Med';
+  src: url('NimbusRomNo9L-Med.eot');
+  src: url('NimbusRomNo9L-Med.eot?#iefix') format('embedded-opentype'),
+       url('NimbusRomNo9L-Med.svg#NimbusRomNo9L-Med') format('svg'),
+       url('NimbusRomNo9L-Med.ttf') format('truetype'),
+       url('NimbusRomNo9L-Med.woff') format('woff'),
+       url('NimbusRomNo9L-Med.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
