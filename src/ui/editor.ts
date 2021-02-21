@@ -65,10 +65,6 @@ class Editor {
         return this.q.getText();
     }
 
-    public format(index: number, length: number, text: string) {
-        this.q.formatText(index, length, 'rule', text);
-    }
-
     public highlightHits(hits: Hit[]) {
         // sorts by end of the span in reverse order.  Applying rules from the end
         // of the doc to the beginning.
