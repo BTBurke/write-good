@@ -1,8 +1,11 @@
 import Quill from 'quill';
+import type { Hit } from '../rules/ruleset';
 
 let Inline = Quill.import('blots/inline');
 
-class LinkBlot extends Inline {
+class RuleBlot extends Inline {
+  static blotName = 'rule';
+  static tagName = 'span';
   static create(value) {
     let node = super.create();
     // Sanitize url value if desired
@@ -23,10 +26,8 @@ class LinkBlot extends Inline {
     return node.getAttribute('title') || true;
   }
 }
-LinkBlot.blotName = 'rule';
-LinkBlot.tagName = 'span';
 
-Quill.register(LinkBlot);
+Quill.register(RuleBlot);
 
 
 class Editor {
@@ -34,13 +35,14 @@ class Editor {
 
     private q: Quill;
 
+
     private constructor() {
         this.q = new Quill('#editor', {
 			theme: 'bubble',
 			placeholder: 'Paste cable here...',
-			formats: ['background', 'bold', 'italic', 'underline', 'indent', 'list', 'size', 'rule'],
+			formats: ['background', 'bold', 'italic', 'underline', 'indent', 'size', 'rule'],
         })
-        Quill.register(LinkBlot);
+        Quill.register(RuleBlot);
      }
 
     public static getInstance(): Editor {
@@ -64,8 +66,19 @@ class Editor {
     }
 
     public format(index: number, length: number, text: string) {
-        const delta = this.q.formatText(index, length, 'rule', text);
-        console.log('delta', delta);
+        this.q.formatText(index, length, 'rule', text);
+    }
+
+    public highlightHits(hits: Hit[]) {
+        // sorts by end of the span in reverse order.  Applying rules from the end
+        // of the doc to the beginning.
+        hits.sort((a,b)=> { return (b.index+b.offset)-(a.index+a.offset) } )
+        // blow away all prior rule formatting
+        this.q.formatText(0, this.q.getText().length, 'rule', false);
+        hits.forEach((hit, i) => {
+            const ruleNumber: number = i % 5;
+            this.q.formatText(hit.index, hit.offset, 'rule', hit.reason);
+        });
     }
 }
 

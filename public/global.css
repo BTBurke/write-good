@@ -6,9 +6,10 @@ html, body {
 }
 
 body {
-	color: #333;
+  color: #333;
+  background: #efefef;
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
@@ -64,7 +65,39 @@ button:focus {
 }
 
 .rule {
-  background: #fb6abd;
+  background: #ffadad;
+}
+
+.rule0 {
+  background: #ffadad;
+}
+
+.rule1 {
+  background: #ffd6a5;
+}
+
+.rule2 {
+  background: #fdffb6;
+}
+
+.rule3 {
+  background: #caffbf;
+}
+
+.rule4 {
+  background: #9bf6ff;
+}
+
+.rule5 {
+  background: #a0c4ff;
+}
+
+.rule6 {
+  background: #bdb2ff;
+}
+
+.rule7 {
+  background: #ffc6ff;
 }
 
 #tooltip {

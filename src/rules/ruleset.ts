@@ -34,6 +34,10 @@ class Ruleset {
     }
 
     check(d: Document): Hit[] {
+        // wait until at least a parapraph marking before doing anything
+        if (d.text.length <= 3) {
+            return []
+        }
         let hits: Hit[] = [];
         d.paragraphs.forEach(p => {
             // check rules for this paragraph

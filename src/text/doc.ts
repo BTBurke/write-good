@@ -10,7 +10,7 @@ class Document {
         const p = text.split("\n\n");
         const acc = (index, para) => {
             this.paragraphs.push(new Paragraph(para, index));
-            return index + para.length;
+            return index + para.length + 2;
         }
         reduce(acc, 0, p);
     }
@@ -26,10 +26,11 @@ class Paragraph {
         console.log(`Paragraph at offset ${index}:\n${text}`);
         this.text = text;
         this.index = index;
-        const s = text.split('. ');
+        
+        const s = text.split('.');
         const acc = (idx, sent) => {
             this.sentences.push(new Sentence(sent, idx));
-            return idx + sent.length;
+            return idx + sent.length + 1;
         }
         reduce(acc, index, s);
     }

@@ -1,35 +1,67 @@
 <script lang="ts">
 import { onMount } from "svelte";
 import { Editor } from './ui/editor';
-import { Document } from './text/doc';
+import { Ruleset } from "./rules/ruleset";
+import { defaultRules } from './rules';
+import { Engine } from "./ui/engine";
 
 	let contents;
+		  
+	let ruleset = new Ruleset(defaultRules);
 
 	onMount(() => {
 		const q = Editor.getInstance()
+		const engine = new Engine(q, ruleset);
 		q.on('text-change', (now, before, source) => {
-			contents = q.getContents();
+			//contents = q.getContents();
+			engine.next(q.getContents());
 		});
 	});
 
 	$: console.log(contents);
-	$: {
-		if (contents) {
-			const q = Editor.getInstance();
-			const text = q.getText();
-			const doc = new Document(text);
-		}
-	}
+	// $: {
+	// 	if (contents) {
+	// 		const q = Editor.getInstance();
+	// 		const text = q.getText();
+	// 		const doc = new Document(text);
+	// 		const hits = ruleset.check(doc);
+	// 		console.log('hits', hits);
+	// 		q.highlightHits(hits);
+	// 	}
+	// }
 </script>
 
 <main>
-	<div id="editor"></div>
+	<div>
+		<h1>Write Good</h1>
+		<p class="tagline">For Diplomats Who Can't Write Good And Wanna Learn To Do Other Stuff Good Too</p>
+	</div>
+	<div class="box">
+		<div id="editor"></div>
+	</div>
 </main>
 
 <style>
+	.box {
+  position: relative;
+  margin: 40px auto;
+  width: 800px;
+  min-height: 80vh;
+  background: #fff;
+  border-radius: 2px;
+  padding: 50px;
+  box-shadow: 0 5px 12px -2px rgba(0, 0, 0, .4);
+}
+
+
 	main {
-		padding-top: 3em;
+		padding: 0;
 		font-size: 16px;
+		max-width: 800px !important;
+		margin: 0 auto;
+		width: 100%;
+		background: #efefef;
+		min-height: 100vh;
 	}
 
 	#editor {
@@ -39,8 +71,15 @@ import { Document } from './text/doc';
 		font-size: 1.6rem;
 		line-height: 1.5;
 		font-family:'NimbusRomNo9L', sans-serif;
+		margin-top: 2rem;
 	}
 
+	.tagline {
+		font-size: 1.2rem;
+		margin: 0;
+		padding: 0;
+		padding-top: 0.1rem;
+	}
 	
 	@font-face {
 		font-family: 'NimbusRomNo9L';
@@ -88,10 +127,15 @@ import { Document } from './text/doc';
 	}
 
 	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
+		color: #1d3557;
+		font-size: 2rem;
 		font-weight: 100;
+		font-family: NimbusRomNo9L;
+		font-weight: bold;
+		padding: 0;
+		margin: 0;
+		margin-top: 1rem;
+		line-height: 2.1rem;
 	}
 
 	@media (min-width: 640px) {
