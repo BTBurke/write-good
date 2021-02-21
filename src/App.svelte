@@ -1,21 +1,25 @@
 <script lang="ts">
 import { onMount } from "svelte";
-import Quill from 'quill';
+import { Editor } from './ui/editor';
+import { Document } from './text/doc';
 
 	let contents;
 
 	onMount(() => {
-		const q = new Quill('#editor', {
-			theme: 'bubble',
-			placeholder: 'Paste cable here...',
-			formats: ['background', 'bold', 'italic', 'underline', 'indent', 'list', 'size'],
-		})
+		const q = Editor.getInstance()
 		q.on('text-change', (now, before, source) => {
-			contents = q.getText();
+			contents = q.getContents();
 		});
 	});
 
 	$: console.log(contents);
+	$: {
+		if (contents) {
+			const q = Editor.getInstance();
+			const text = q.getText();
+			const doc = new Document(text);
+		}
+	}
 </script>
 
 <main>
@@ -32,7 +36,8 @@ import Quill from 'quill';
 		max-width: 700px;
 		width: 100%;
 		margin: 0 auto;
-		font-size: 16px;
+		font-size: 1.6rem;
+		line-height: 1.5;
 		font-family:'NimbusRomNo9L', sans-serif;
 	}
 

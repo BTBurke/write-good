@@ -1,7 +1,8 @@
 html, body {
 	position: relative;
 	width: 100%;
-	height: 100%;
+  height: 100%;
+  font-size: 62.5%;
 }
 
 body {
@@ -62,6 +63,17 @@ button:focus {
 	border-color: #666;
 }
 
+.rule {
+  background: #fb6abd;
+}
+
+#tooltip {
+	position:absolute;
+	background:#DB2A64;
+	color:#ffffff;
+	padding:8px;
+}
+
 /*!
  * Quill Editor v1.3.7
  * https://quilljs.com/
@@ -95,7 +107,7 @@ button:focus {
   }
   .ql-editor {
 	box-sizing: border-box;
-	line-height: 1.42;
+	line-height: 1;
 	height: 100%;
 	outline: none;
 	overflow-y: auto;
